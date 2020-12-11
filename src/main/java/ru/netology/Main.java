@@ -46,19 +46,29 @@ public class Main {
         System.out.println(person);
 
         //check throwing exception by empty sirname
-        Person personNoSirname = new PersonBuilder()
-                .setName("John")
-                .setSirName("")
-                .setAge(20)
-                .setCity("Paris")
-                .build();
+        try {
+            Person personNoSirname = new PersonBuilder()
+                    .setName("John")
+                    .setSirName("")
+                    .setAge(20)
+                    .setCity("Paris")
+                    .build();
+            System.out.println(personNoSirname);
+        } catch (IllegalStateException | IllegalArgumentException exception) {
+            exception.printStackTrace();
+        }
 
         //check throwing exception by wrong age
-        Person personWrongAge = new PersonBuilder()
-                .setName("John")
-                .setSirName("Smith")
-                .setAge(121)
-                .setCity("Paris")
-                .build();
+        try {
+            Person personWrongAge = new PersonBuilder()
+                    .setName("John")
+                    .setSirName("Smith")
+                    .setAge(121)
+                    .setCity("Paris")
+                    .build();
+            System.out.println(personWrongAge);
+        } catch (IllegalStateException | IllegalArgumentException exception) {
+            exception.printStackTrace();
+        }
     }
 }

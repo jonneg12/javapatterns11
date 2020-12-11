@@ -4,6 +4,8 @@ import static ru.netology.Main.withoutAddress;
 
 public class PersonBuilder {
 
+    public static final int MAX_AGE = 120;
+
     protected String name;
 
     protected String sirName;
@@ -17,34 +19,18 @@ public class PersonBuilder {
     protected boolean isHasAddress = false;
 
     public PersonBuilder setName(String name) {
-
-        try {
-            if (name.isEmpty()) throw new IllegalStateException("Name can not be empty!");
-            this.name = name;
-        } catch (IllegalStateException exception) {
-            System.out.println(exception.getMessage());;
-        }
+        this.name = name;
         return this;
     }
 
     public PersonBuilder setSirName(String sirName) {
-        try {
-            if (sirName.isEmpty()) throw new IllegalStateException("Sirname can not be empty!");
-            this.sirName = sirName;
-        } catch (IllegalStateException exception) {
-            System.out.println(exception.getMessage());;
-        }
+        this.sirName = sirName;
         return this;
     }
 
     public PersonBuilder setAge(int age) {
-        try {
-            if (age < 0 || age > 120) throw new IllegalArgumentException("Wrong age! Age must be more than 0 and less than 120.");
-            this.age = age;
-            isHasAge = age != 0;
-        } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());;
-        }
+        this.age = age;
+        isHasAge = age != 0;
         return this;
     }
 
@@ -54,8 +40,11 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
+    public Person build() throws IllegalArgumentException, IllegalStateException {
         Person person;
+            if (name.isEmpty()) throw new IllegalStateException("Name can not be empty!");
+            if (sirName.isEmpty()) throw new IllegalStateException("Sirname can not be empty!");
+            if (age < 0 || age > MAX_AGE) throw new IllegalArgumentException("Wrong age! Age must be more than 0 and less than 120. Current value is " +  age + "."  );
         if (isHasAddress) {
             person = new Person(name, sirName, age, city);
         } else {
